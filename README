@@ -1,0 +1,25 @@
+The goal of this project is to take a user inputed infix, prefix, or postfix expression, insert the expression into a Binary Expression Tree, then output the expression in
+the three notations using the tree
+
+In order to create a BET out of an infix expression, it is necessary to convert it into a postfix expression. This is done using the following algorithm:
+1)	 Push ( onto stack.
+2)	 Immediately output all operands to a string.
+3)	 With an operator, check to see if any operators are on top  
+ of the stack.  If so, pop all operators of higher or equal 
+ precedence.  Then, push your operator onto the stack.
+4)	 If you see a ), pop and output all stack symbols into the string until you find a (.  
+ Then, pop the (.
+5)	 End of input.  Pop all remaining stack symbols.
+The string of operators and operands is in postfix and is returned so that a BET can be created.
+
+
+insertOperand is called when the char to be added is an operand (number). It is designated as an operand, its children are set as NULL (because all operands in a BET are leaves),
+and it is then pushed onto the stack to be added to the tree later when an operator needs it
+
+insertPostfixOperator is called when the char to be added from a postfix (or infix) expression is an operator. After it is added as a node, its children become the first two 
+operands or operators on the stack, right and then left. There will always be operands on the stack because this is postfix. The operator is made the root because the last
+ operator added will always be the root. It is finally pushed onto the stack in case there is another operator that will have it as a child
+ 
+insertPrefixOperator is very similar to its postfix couterpart, except it must read through the expression in reverse. This is because in prefix the operators are first in the 
+expression, so adding an operator first would result in an error because there are no previous nodes to make its children, and operators are never leaves. Thus the children will 
+be added left and then right, and the client file will decrement from back to front when calling
